@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Constants from '../../../constants';
 
 const Login = () => {
 
@@ -12,7 +13,7 @@ const Login = () => {
     const handleInput = (e) => setInput(prevState => ({ ...prevState, [e.target.name]: e.target.value }))
     const handleLogin = () => {
         setIsLoading(true)
-        axios.post('http://localhost:8000/api/login', input).then(res => {
+        axios.post(`${Constants.BASE_URL}/login`, input).then(res => {
             localStorage.email = res.data.email
             localStorage.name = res.data.name
             localStorage.phone = res.data.phone
