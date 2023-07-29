@@ -10,10 +10,6 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
-    /**
-     * param AuthRequest
-     * return JsonResponse
-     */
     final public function login(AuthRequest $request): JsonResponse
     {
         $user = (new User())->getUserByEmailOrPhone($request->all());
@@ -26,18 +22,15 @@ class AuthController extends Controller
             $user_data['email'] = $user->email;
             return response()->json($user_data);
         }
-        
+
         throw ValidationException::withMessages([
-            'email' => ['The provided credentials are incorrect']
+            'email' => ['The provided credentials are incorrect.'],
         ]);
     }
 
-    /**
-     * return JsonResponse
-     */
     final public function logout(): JsonResponse
     {
-        auth()->user()->tokens()->delete();
-        return response()->json(['msg'=> 'You have successfully logged out']);
+        auth()->user()->tokens()->delete()
+        return response()->json(['msg' => 'You have successfully logged out']);
     }
 }

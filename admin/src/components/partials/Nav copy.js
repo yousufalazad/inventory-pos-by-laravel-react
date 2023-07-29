@@ -1,42 +1,37 @@
 import React from 'react';
 import $ from 'jquery';
-import logo from './../../assets/img/azon-logo.png';
-import Swal from "sweetalert2";
+import logo from '../../assets/img/azon-logo.png';
+import Swal from 'sweetalert2';
 import axios from 'axios';
 import Constants from '../../Constants';
 
+
 const Nav = () => {
-
-    const handleLogout = ()=>{
-
+    const handleLogout = ()=> {
         Swal.fire({
             title: 'Are you sure?',
-            text: "You will be logged out!",
+            text: "You will be logged out",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, Logout!'
+            confirmButtonText: 'Yes, logout'
           }).then((result) => {
             if (result.isConfirmed) {
-                
-                axios.post(`${Constants.BASE_URL}/logout`)
-                .then((res) => {
+                axios.post(`${Constants.BASE_URL}/logout`).then(res => {
                     localStorage.removeItem('email')
                     localStorage.removeItem('name')
                     localStorage.removeItem('phone')
                     localStorage.removeItem('photo')
                     localStorage.removeItem('token')
                     window.location.reload()
+                }).catch(errors => {
                 })
-                .catch((errors) => {
-                    
-                });
             }
           })
     }
 
-    const handleSidebar = ()=> {
+    const handleSidebar = () => {
         $('body').toggleClass('sb-sidenav-toggled')
     }
     return (
